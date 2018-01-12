@@ -1,7 +1,8 @@
 
 # coding: utf-8
 
-# # Text Analytics in python using the numpy package 
+# # Text Analytics in python using the numpy package
+## The dataset can be found in: https://www.dropbox.com/sh/ltgo0fkxt136muo/AACDhSMCjd2oFR-NuiPAaCrTa?dl=0
 
 # ## Part A: Word Games
 # 
