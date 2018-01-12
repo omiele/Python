@@ -5,9 +5,9 @@
 
 # Using Panda Package for Analytics in python
 
-The code uses census data from the [United States Census Bureau](https://www.census.gov/data/datasets/2016/demo/popest/counties-total.html). Counties are political and geographic subdivisions of states in the United States. This dataset contains population data for counties and states in the US from 2010 to 2016. A copy of the data description document [co-est2016-alldata.pdf](https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2016/co-est2016-alldata.pdf) has been provided in the A1 folder.
+#The code uses census data from the [United States Census Bureau](https://www.census.gov/data/datasets/2016/demo/popest/counties-total.html). Counties are political and geographic subdivisions of states in the United States. This dataset contains population data for counties and states in the US from 2010 to 2016. A copy of the data description document [co-est2016-alldata.pdf](https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2016/co-est2016-alldata.pdf) has been provided in the A1 folder.
 
-The census dataset (census.csv) has been loaded below as `census_df`. This data is available in https://www.dropbox.com/s/t65iv729b7ph2nt/co-est2016-alldata.csv?dl=0
+#The census dataset (census.csv) has been loaded below as `census_df`. This data is available in https://www.dropbox.com/s/t65iv729b7ph2nt/co-est2016-alldata.csv?dl=0
 
 
 # In[1]:
