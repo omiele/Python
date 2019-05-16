@@ -30,7 +30,7 @@ import string
 
 # In[ ]:
 
-def create_wordlist(filename, is_Gutenberg=True):
+def create_wordlist(filename, is_Gutenberg):
     """ Read a file, and create a list of all of the words in the file: 
         1. Strip off whitespace, and punctuation
         2. Replace hyphens with spaces
@@ -51,26 +51,52 @@ def create_wordlist(filename, is_Gutenberg=True):
     is_Gutenberg: boolean, if True, skip Gutenberg header & footer
     returns: list of words
     """
+ h = dict()
+    fin = open(filename, 'r')
+    if (is_Gutenberg==True):
+        for line in fin:
+            if "START OF THIS PROJECT GUTENBERG BOOK" in line:
+                break               
+        for line in fin:
+            if "End of the Project Gutenberg EBook" in line:
+                break              
+    for line in fin:
+        process_line(line, h)
+    return h
 
-    return  
+def process_line(line, h):
+    line = line.replace('-', ' ')
 
+    for word in line.split():
+        word = word.strip(string.punctuation + string.whitespace)
+        word = word.lower()
+
+        h[word] = h.get(word,0)+1
 
 # In[ ]:
 
 def word_frequency(word_list):
+    counts = dict()
+    for i in word_list:
+        counts[i] = counts.get(i, 0) + 1
+        hist, bin_edges = np.histogram(counts, bins = range(5))
+        print(hist)
     """ Given a list of words, create a histogram (dictionary) which maps 
         each word to the number of times it appears in the list.
 
     word_list: list of words
     returns: histogram (dict - key:word, value: times word appears)
     """
-
     return
 
 
 # In[ ]:
 
 def crossword_cheat(words_list, word_length, match_letters = None):
+    unique_words = set(word_list)
+    for word in unique_words:
+        if len(word) == word_length:
+            print(word)
     """ From the provided list of unique words, identify and return a 
         list of word(s) that meet the criteria for word length and 
         matching letter/positions.
@@ -80,7 +106,6 @@ def crossword_cheat(words_list, word_length, match_letters = None):
     match_letters: dictionary key: letter position, value: letter, may be None
     returns: list of matching words
     """
-
     return  
 
 
@@ -98,9 +123,11 @@ def A1(book):
     """ Return the total number of words contained in a Gutenberg text file.
         The question code should call the completed Word Analysis functions
     """ 
+    words = create_wordlist(book, False)
+    return total_words(words)
 
-    return "YOUR ANSWER HERE"
-
+def total_words(h):
+    return sum(h.values())
 
 # In[ ]:
 
@@ -118,19 +145,22 @@ a1
 # In[ ]:
 
 def A2(book):
+    wordlist = create_wordlist(book, False)
+    num = different_words(wordlist)
     """ Return the number of unique words contained in a Gutenberg
         book's text file. The question code should call the 
         completed Word Analysis functions
     """  
-   
-    return "YOUR ANSWER HERE"
+    return num
 
+def different_words(h):
+    return len(h)
 
 # In[ ]:
 
 a2 = A2('data/frankenstein.txt')
 # Answer: 7062
-a1
+a2
 
 
 # ### A3: Word frequency
@@ -143,12 +173,14 @@ a1
 # In[ ]:
 
 def A3(book, word):
+    wordlist = create_wordlist(book, False)
+    num = word_frequency(wordlist) 
     """ Return the number of times 'word' occurs in the Gutenberg 
         book's text file. The question code should call the completed 
         Word Analysis functions
     """
     
-    return "YOUR ANSWER HERE"
+    return num
 
 
 # In[ ]:
@@ -167,15 +199,16 @@ a3
 # In[ ]:
 
 def A4(words_file, is_Gutenberg, word_length, match_letters):
+    words = create_wordlist(words_file, is_Gutenberg)
+    unique_words = set(words)
+    for word in unique_words:
+        if(len(word)==word_length) and (word.index('h') == match_letters):
+            print(word)   
     """ Return the list of unique words from the words_file 
         which match the criteria.  The question code should call the 
         completed Word Analysis functions    
-    """ 
-    
-    return "YOUR ANSWER HERE"
-
-
-# In[ ]:
+    """    
+    return 
 
 a4 = A4('data/sowpods.txt', False, 5, {1:'h', 3:'z'})
 # Answer: ['chizz', 'ghazi', 'khazi', 'whizz']
@@ -190,15 +223,13 @@ a4
 # In[ ]:
 
 def A5(words_file, word_length):
+    cross = crossword_cheat(words_file, word_length, None)
+    num = len(cross)
     """ Return the total number of unique words in words_file 
         which match the criteria.  The question code should call the 
         completed Word Analysis functions
     """
-    
-    return "YOUR ANSWER HERE"
-
-
-# In[ ]:
+    return num
 
 a5 = A5('data/adventures_of_huckleberry_finn.txt', 4)
 # Answer: 895
